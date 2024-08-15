@@ -1,12 +1,13 @@
 'use client'
 import { Button, Stack, Typography, Modal, TextField } from '@mui/material';
+import Image from 'next/image';
 import Box from '@mui/material/Box';
-import {firestore} from '../firebase';
+import { firestore } from '../firebase';
 import { useEffect, useState } from 'react';
-import { query, collection, getDocs, setDoc, doc, deleteDoc, getDoc} from 'firebase/firestore';
-
+import { query, collection, getDocs, setDoc, doc, deleteDoc, getDoc } from 'firebase/firestore';
+import image from "./pantry.webp"
 const style = {
-  position: 'absolute' , 
+  position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
@@ -20,7 +21,7 @@ const style = {
   gap: 2
 };
 export default function Home() {
-  const [pantry, setPantry] = useState([]) 
+  const [pantry, setPantry] = useState([])
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -30,36 +31,36 @@ export default function Home() {
     const docs = await getDocs(snapshot)
     const pantryList = []
     docs.forEach((doc) => {
-      pantryList.push({name:doc.id, ...doc.data()})
+      pantryList.push({ name: doc.id, ...doc.data() })
     })
     console.log(pantryList)
     setPantry(pantryList)
   }
   useEffect(() => {
-    
+
     updatePantry()
   }, [])
 
 
-  const addItem = async(item) => {
+  const addItem = async (item) => {
     const docRef = doc(collection(firestore, 'pantry'), item)
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
-      const {count} = docSnap.data()
-      await setDoc(docRef, {count:count+1})
+      const { count } = docSnap.data()
+      await setDoc(docRef, { count: count + 1 })
     } else {
-      await setDoc(docRef, {count:1})
+      await setDoc(docRef, { count: 1 })
     }
     await updatePantry()
   }
 
-  const removeItem = async(item) => {
+  const removeItem = async (item) => {
     const docRef = doc(collection(firestore, 'pantry'), item)
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
-      const {count} = docSnap.data()
+      const { count } = docSnap.data()
       if (count > 1) {
-        await setDoc(docRef, {count:count-1})
+        await setDoc(docRef, { count: count - 1 })
       } else {
         await deleteDoc(docRef)
       }
@@ -68,15 +69,58 @@ export default function Home() {
   }
   return (
     <Box
-      width="100vw" 
-      height="100vh"
+      width="100%"
       display={"flex"}
       justifyContent={"center"}
       flexDirection={"column"}
       alignItems={"center"}
       gap={2}
     >
-      <Button variant="contained" onClick={handleOpen}>ADD</Button>
+      <div className="hero">
+        <div>
+        <div className='intro'>
+        <h1>
+          Pantry Tracker
+        </h1>
+        <p>
+          Keep track of your entire pantry in one place
+        </p>
+        </div>
+        <div>
+          <Image src={image} alt="A pantry with various items" id='image1'       width={500}
+      height={500}/>
+        </div>
+      </div>
+      </div>
+      <Box border={'0px solid black'} className="main-stack">
+        <Box width="800px" height="100px" bgcolor="skyblue" display={"flex"} justifyContent={"center"} alignItems={"center"} className="header">
+          <Typography variant="h3" color={'black'} textAlign={'center'}>
+            Pantry Items
+          </Typography>
+        </Box>
+        <Stack width="800px" spacing={2} overflow={'auto'}>
+          {pantry.length !== 0 ? (
+          pantry.map(({ name, count }) =>
+            <Box key={name} minHeight="150px"
+              display={"flex"} justifyContent={"space-between"} paddingX={2} alignItems={"center"} bgcolor="lightpink" >
+              <Typography variant="h4" color={'white'} textAlign={'center'}>
+                {
+                  name.charAt(0).toUpperCase() + name.slice(1)
+                }
+              </Typography>
+              <Typography variant="h4" color={'white'} textAlign={'center'}>
+                Quantity:{count}
+              </Typography>
+              <Button className='Add-btn' style={{marginBottom: "0px", padding: ".5rem 2rem"}} onClick={() => removeItem(name)}>Remove Item</Button>
+            </Box>
+          )): 
+          (<p style={{fontSize: '25px', display:'inline-block', margin: '4rem auto'}}>You have no items in your pantry!</p>)
+          }
+
+
+        </Stack>
+      </Box>
+      <Button onClick={handleOpen} className="Add-btn">Add</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -88,46 +132,17 @@ export default function Home() {
             Add New Item
           </Typography>
           <Stack direction="row" spacing={2}>
-            <TextField id="standard-basic" label="Item" variant="standard" fullWidth value={itemName} onChange={(e) => setItemName(e.target.value)}/>
-            <Button variant="outlined" 
-            onClick={() => {addItem(itemName) 
-              setItemName('')
-              handleClose()}}
+            <TextField id="standard-basic" label="Item" variant="standard" fullWidth value={itemName} onChange={(e) => setItemName(e.target.value)} />
+            <Button variant="outlined"
+              onClick={() => {
+                addItem(itemName)
+                setItemName('')
+                handleClose()
+              }}
             >Add</Button>
           </Stack>
         </Box>
       </Modal>
-      <Box  border={'2px solid black'}>
-        <Box width="800px" height="100px" bgcolor="skyblue" display={"flex"} justifyContent={"center"} alignItems={"center"}>
-          <Typography variant="h3" color={'white'} textAlign={'center'}>
-            Pantry Items
-          </Typography>
-        </Box>
-        <Stack width="800px"  height="300px" spacing={2} overflow={'auto'}>
-          {pantry.map(({name, count}) => 
-            <Box key={name} minHeight="150px" 
-            display={"flex"} justifyContent={"space-between"} paddingX={2} alignItems={"center"} bgcolor="lightpink" >
-
-              <Typography variant="h4" color={'white'} textAlign={'center'}>
-
-                {
-                  //Capitalize the first letter of each word
-                  name.charAt(0).toUpperCase() + name.slice(1)
-                }
-                
-              
-              </Typography>
-              <Typography variant="h4" color={'white'} textAlign={'center'}>
-                Quantity:{count}
-              </Typography>
-              <Button variant="contained" onClick={() => removeItem(name)}>Remove Item</Button>
-            </Box>
-            
-      )}
-
-
-      </Stack>
-      </Box>
     </Box>
   );
 }

@@ -12,3 +12,77 @@
 body {
   background-color: var(--background-color);
 }
+
+h1{
+  font-size: 50px;
+}
+
+.hero {
+  background-color: rgb(255, 248, 227);
+  width: 100%;
+  height: 70vh;
+  min-height: 650px;
+}
+
+.hero > div {
+  display: flex;
+  background-color: rgb(255, 248, 227);
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem;
+  height: 100%;
+}
+
+
+.css-1kymlmm-MuiStack-root>:not(style)~:not(style) {
+margin-top: 0;
+border-top: 1px solid black;
+}
+
+.intro {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 100px;
+}
+
+.intro > h1 {
+line-height: 10rem;
+}
+.intro > p {
+  font-size: 2rem;
+}
+
+.header {
+  border-radius: 20px 20px 0 0;
+}
+
+.main-stack {
+  border-radius: 20px;
+  margin: 2rem auto;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.Add-btn {
+  margin-bottom: 10rem;
+  outline: 3px #1976d2 solid;
+  padding: 1rem 5rem;
+  border-radius: 50px;
+  transition: .4s all ease-in-out;
+  font-size: 20px;
+}
+
+.Add-btn:hover {
+  transition: .4s all ease-in-out;
+  background-color:#1976d2;
+  color: white;
+}
+
+#image1 {
+  margin: 3rem 0;
+  border-radius: 30px;
+}

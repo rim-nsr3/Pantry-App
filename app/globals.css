@@ -18,15 +18,27 @@ h1{
 }
 
 .hero {
-  background-color: rgb(255, 248, 227);
+  background-color: rgb(242, 235, 213);
   width: 100%;
-  height: 70vh;
-  min-height: 650px;
+  height: 80vh;
+  min-height: 850px;
+  position: relative;
 }
 
+
+.hero::after {
+  content: "";
+  border-top-left-radius: 50% 100%;
+  border-top-right-radius: 50% 100%;
+  position: absolute;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  background-color: #ffffff;
+}
 .hero > div {
   display: flex;
-  background-color: rgb(255, 248, 227);
+  background-color: rgb(242, 235, 213);
   max-width: 1500px;
   width: 100%;
   margin: 0 auto;
@@ -52,9 +64,11 @@ border-top: 1px solid black;
 
 .intro > h1 {
 line-height: 10rem;
+font-size: 90px;
 }
+
 .intro > p {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 .header {

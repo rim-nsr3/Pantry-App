@@ -4,6 +4,14 @@ import Image from 'next/image';
 import Box from '@mui/material/Box';
 import { firestore } from '../firebase';
 import { useEffect, useState } from 'react';
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+
+import Toolbar from '@mui/material/Toolbar';
+
+
+import IconButton from '@mui/material/IconButton';
+
 import { query, collection, getDocs, setDoc, doc, deleteDoc, getDoc } from 'firebase/firestore';
 import image from "./pantry.webp"
 const style = {
@@ -76,21 +84,39 @@ export default function Home() {
       alignItems={"center"}
       gap={2}
     >
+      <AppBar position="fixed" sx={{ bgcolor: '#fff' }}>
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#000000'}}>
+            Pantry-Tracker
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#000000' }} textAlign={'right'}>
+            Made by a hamster &lt;3
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <div className="hero">
         <div>
-        <div className='intro'>
-        <h1>
-          Pantry Tracker
-        </h1>
-        <p>
-          Keep track of your entire pantry in one place
-        </p>
+          <div className='intro'>
+            <h1>
+              Pantry Tracker
+            </h1>
+            <p>
+              Keep track of your entire pantry in one place
+            </p>
+          </div>
+          <div>
+            <Image src={image} alt="A pantry with various items" id='image1' width={500}
+              height={500} />
+          </div>
         </div>
-        <div>
-          <Image src={image} alt="A pantry with various items" id='image1'       width={500}
-      height={500}/>
-        </div>
-      </div>
       </div>
       <Box border={'0px solid black'} className="main-stack">
         <Box width="800px" height="100px" bgcolor="skyblue" display={"flex"} justifyContent={"center"} alignItems={"center"} className="header">
@@ -100,21 +126,21 @@ export default function Home() {
         </Box>
         <Stack width="800px" spacing={2} overflow={'auto'}>
           {pantry.length !== 0 ? (
-          pantry.map(({ name, count }) =>
-            <Box key={name} minHeight="150px"
-              display={"flex"} justifyContent={"space-between"} paddingX={2} alignItems={"center"} bgcolor="lightpink" >
-              <Typography variant="h4" color={'white'} textAlign={'center'}>
-                {
-                  name.charAt(0).toUpperCase() + name.slice(1)
-                }
-              </Typography>
-              <Typography variant="h4" color={'white'} textAlign={'center'}>
-                Quantity:{count}
-              </Typography>
-              <Button className='Add-btn' style={{marginBottom: "0px", padding: ".5rem 2rem"}} onClick={() => removeItem(name)}>Remove Item</Button>
-            </Box>
-          )): 
-          (<p style={{fontSize: '25px', display:'inline-block', margin: '4rem auto'}}>You have no items in your pantry!</p>)
+            pantry.map(({ name, count }) =>
+              <Box key={name} minHeight="150px"
+                display={"flex"} justifyContent={"space-between"} paddingX={2} alignItems={"center"} bgcolor="lightpink" >
+                <Typography variant="h4" color={'white'} textAlign={'center'}>
+                  {
+                    name.charAt(0).toUpperCase() + name.slice(1)
+                  }
+                </Typography>
+                <Typography variant="h4" color={'white'} textAlign={'center'}>
+                  Quantity:{count}
+                </Typography>
+                <Button className='Add-btn' style={{ marginBottom: "0px", padding: ".5rem 2rem" }} onClick={() => removeItem(name)}>Remove Item</Button>
+              </Box>
+            )) :
+            (<p style={{ fontSize: '25px', display: 'inline-block', margin: '4rem auto' }}>You have no items in your pantry!</p>)
           }
 
 

@@ -1,5 +1,5 @@
 'use client'
-import { Button, Stack, Typography, Modal, TextField } from '@mui/material';
+import { Button, Stack, Typography, Modal, TextField, Avatar} from '@mui/material';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
 import { firestore } from '../firebase';
@@ -98,7 +98,7 @@ export default function Home() {
             Pantry-Tracker
           </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#000000' }} textAlign={'right'}>
-            Made by a hamster &lt;3
+            Made with ❤️ by Rim
           </Typography>
         </Toolbar>
       </AppBar>
@@ -134,13 +134,11 @@ export default function Home() {
                     name.charAt(0).toUpperCase() + name.slice(1)
                   }
                 </Typography>
-                <Typography variant="h4" color={'white'} textAlign={'center'}>
-                  Quantity:{count}
-                </Typography>
+                <Avatar sx={{ bgcolor: '#706454' }} textAlign={'center'}>{count}</Avatar>
                 <Button className='Add-btn' style={{ marginBottom: "0px", padding: ".5rem 2rem" }} onClick={() => removeItem(name)}>Remove Item</Button>
               </Box>
             )) :
-            (<p style={{ fontSize: '25px', display: 'inline-block', margin: '4rem auto' }}>You have no items in your pantry! HELPPP I LOVE MY GIRLFRIEND</p>)
+            (<p style={{ fontSize: '25px', display: 'inline-block', margin: '4rem auto' }}>You have no items in your pantry!</p>)
           }
 
 

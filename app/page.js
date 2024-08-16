@@ -128,8 +128,8 @@ export default function Home() {
           {pantry.length !== 0 ? (
             pantry.map(({ name, count }) =>
               <Box key={name} minHeight="150px"
-                display={"flex"} justifyContent={"space-between"} paddingX={2} alignItems={"center"} bgcolor="lightpink" >
-                <Typography variant="h4" color={'white'} textAlign={'center'}>
+                display={"flex"} justifyContent={"space-between"} paddingX={2} alignItems={"center"}  >
+                <Typography variant="h4" color={'black'} textAlign={'center'}>
                   {
                     name.charAt(0).toUpperCase() + name.slice(1)
                   }
@@ -140,7 +140,7 @@ export default function Home() {
                 <Button className='Add-btn' style={{ marginBottom: "0px", padding: ".5rem 2rem" }} onClick={() => removeItem(name)}>Remove Item</Button>
               </Box>
             )) :
-            (<p style={{ fontSize: '25px', display: 'inline-block', margin: '4rem auto' }}>You have no items in your pantry!</p>)
+            (<p style={{ fontSize: '25px', display: 'inline-block', margin: '4rem auto' }}>You have no items in your pantry! HELPPP I LOVE MY GIRLFRIEND</p>)
           }
 
 

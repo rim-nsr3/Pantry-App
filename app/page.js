@@ -4,10 +4,6 @@ import Image from 'next/image';
 import Box from '@mui/material/Box';
 import { firestore } from '../firebase';
 import { useEffect, useState } from 'react';
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-
-import Toolbar from '@mui/material/Toolbar';
 
 
 import IconButton from '@mui/material/IconButton';
@@ -161,10 +157,6 @@ export default function Home() {
               onClick={() => {
                 addItem(itemName)
                 setItemName('')
-                handleClose()
-              }}
-            >Add</Button>
-          </Stack>
         </Box>
       </Modal>
     </Box>
